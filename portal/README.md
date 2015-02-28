@@ -9,4 +9,4 @@ To run the tests:
 
 ```npm test```
 
-Npm tests will run mocha
+Npm tests will run with mocha
