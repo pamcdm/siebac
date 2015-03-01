@@ -37,7 +37,7 @@ gulp.task('distStyles', ['sass'], function() {
     .pipe(gulp.dest('./dist/public/style'));
 });
 
-gulp.task('default', ['distLibs', 'distSources', 'distStyles'], function() {
+gulp.task('build', ['distLibs', 'distSources', 'distStyles'], function() {
 
 });
 

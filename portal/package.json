@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js",
-    "build": "gulp build"
+    "build:site": "gulp build",
+    "build:server": "cp src/app.js dist",
+    "build": "npm run build:site && npm run build:server",
+    "clean": "rm -r dist & rm -r build"
   },
   "author": "",
   "license": "ISC",
