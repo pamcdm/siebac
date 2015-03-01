@@ -11,8 +11,12 @@ pids
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# Vi
+#Vi
 *.swp
 
 #Bower
 bower_components
+
+#generated
+dist
+build
