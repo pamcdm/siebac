@@ -29,7 +29,5 @@
     "browserify": "latest",
     "gulp": "latest",
     "bower-files": "latest",
-    "gulp-sass": "latest",
-    "npm-watch": "latest"
   }
 }

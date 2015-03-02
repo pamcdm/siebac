@@ -11,11 +11,11 @@ var lib = require('bower-files')({
 });
 //var sass = require('gulp-sass');
 
-gulp.task('sass', function () {
-  return gulp.src('./src/site/style/*.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./build/site/style'));
-});
+//gulp.task('sass', function () {
+//  return gulp.src('./src/site/style/*.scss')
+//    .pipe(sass())
+//    .pipe(gulp.dest('./build/site/style'));
+//});
 
 gulp.task('bower', function() {
   return gulp.src(lib.ext('js').files)
