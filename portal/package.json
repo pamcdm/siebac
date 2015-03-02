@@ -23,11 +23,12 @@
     "express": "latest"
   },
   "devDependencies": {
-    "mocha": "latest",
-    "supertest": "latest",
     "bower": "latest",
+    "bower-files": "latest",
     "browserify": "latest",
     "gulp": "latest",
-    "bower-files": "latest"
+    "gulp-bower": "0.0.10",
+    "mocha": "latest",
+    "supertest": "latest"
   }
 }

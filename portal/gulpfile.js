@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var bower = require('gulp-bower');
+
 var lib = require('bower-files')({
   json: './src/site/bower.json',
   dir: './src/site/bower_components',
@@ -9,6 +11,12 @@ var lib = require('bower-files')({
     }
   }
 });
+
+ 
+gulp.task('bower', function() {
+  return bower({ cwd: './src/site'});
+});
+
 //var sass = require('gulp-sass');
 
 //gulp.task('sass', function () {
@@ -17,7 +25,7 @@ var lib = require('bower-files')({
 //    .pipe(gulp.dest('./build/site/style'));
 //});
 
-gulp.task('bower', function() {
+gulp.task('bowerLibs', function() {
   return gulp.src(lib.ext('js').files)
     .pipe(gulp.dest('./build/site/lib/'))
 });
