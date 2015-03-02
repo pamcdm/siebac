@@ -1,5 +1,6 @@
 # Siebac - Should I Ever Buy A Car
 
+[![Build Status](https://snap-ci.com/bymarkone/siebac/branch/master/build_image)](https://snap-ci.com/bymarkone/siebac/branch/master)
 
 Siebac is a demo application that I've used before to experiment and demo concepts and best practices on Javascript technologies, microservices, web frameworks, languages, language paradigms and devops.
 
