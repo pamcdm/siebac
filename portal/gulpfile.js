@@ -28,7 +28,7 @@ gulp.task('distLibs', function() {
 });
 
 gulp.task('distSources', function() {
-  return gulp.src('./src/site/*.*')
+  return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
     .pipe(gulp.dest('./dist/public'));
 });
 

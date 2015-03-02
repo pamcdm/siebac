@@ -1,5 +1,5 @@
 var request = require('supertest'),
-    app = require('../src/app'),
+    app = require('../dist/app'),
     assert = require('assert');
 
 describe('GET root public resources', function(){
