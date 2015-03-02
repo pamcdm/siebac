@@ -7,8 +7,8 @@
     "test": "npm run build; npm run test:api",
     "test:api": "mocha test/apiTest.js",
     "build:site": "gulp build",
-    "build:server": "cp src/server/*.js dist",
-    "build": "npm run build:site & npm run build:server",
+    "build:server": "cp src/server/*.js dist/",
+    "build": "mkdir -p dist & npm run build:site & npm run build:server",
     "watch": "npm-watch",
     "clean": "rm -r dist & rm -r build",
     "bower": "gulp bower"

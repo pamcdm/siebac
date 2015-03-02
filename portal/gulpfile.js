@@ -30,7 +30,7 @@ gulp.task('distLibs', function() {
 });
 
 gulp.task('distSources', function() {
-  return gulp.src(['./src/site/*.*', './src/site/static/*.8'])
+  return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
     .pipe(gulp.dest('./dist/public'));
 });
 
