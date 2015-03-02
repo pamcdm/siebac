@@ -10,7 +10,8 @@
     "build:server": "cp src/server/*.js dist",
     "build": "npm run build:site & npm run build:server",
     "watch": "npm-watch",
-    "clean": "rm -r dist & rm -r build"
+    "clean": "rm -r dist & rm -r build",
+    "bower": "gulp bower"
   },
   "watch": {
     "build:site": "src/site/*.js",
