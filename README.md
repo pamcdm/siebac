@@ -1,5 +1,6 @@
 # Siebac - Should I Ever Buy A Car
 
+
 Siebac is a demo application that I've used before to experiment and demo concepts and best practices on Javascript technologies, microservices, web frameworks, languages, language paradigms and devops.
 
 The domain is quite simple: let's imagine you are thinking is buying a car. How should you know that the cost/benefit of your investment will pay itself against alternative scenarios - right now a combination of using public transportation, taxi's and rent car eventually. **The application allows you to play with several variables for both scenarios trying to find the situation which fit's the most to your reality. Then it calculates the real cost and benefit of both alternatives allowing you to have more information to take a decision.**
