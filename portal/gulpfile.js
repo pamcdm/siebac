@@ -9,7 +9,7 @@ var lib = require('bower-files')({
     }
   }
 });
-var sass = require('gulp-sass');
+//var sass = require('gulp-sass');
 
 gulp.task('sass', function () {
   return gulp.src('./src/site/style/*.scss')
@@ -28,11 +28,11 @@ gulp.task('distLibs', function() {
 });
 
 gulp.task('distSources', function() {
-  return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
+  return gulp.src(['./src/site/*.*', './src/site/static/*.8'])
     .pipe(gulp.dest('./dist/public'));
 });
 
-gulp.task('distStyles', ['sass'], function() {
+gulp.task('distStyles', function() {
   return gulp.src(['./build/site/style/*.css'])
     .pipe(gulp.dest('./dist/public/style'));
 });
