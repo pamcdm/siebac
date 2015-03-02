@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var bower = require('gulp-bower');
 
 var lib = require('bower-files')({
   json: './src/site/bower.json',
@@ -10,11 +9,6 @@ var lib = require('bower-files')({
       dependencies: {}
     }
   }
-});
-
- 
-gulp.task('bower', function() {
-  return bower({ cwd: './src/site'});
 });
 
 //var sass = require('gulp-sass');
