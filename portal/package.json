@@ -28,6 +28,6 @@
     "bower": "latest",
     "browserify": "latest",
     "gulp": "latest",
-    "bower-files": "latest",
+    "bower-files": "latest"
   }
 }
