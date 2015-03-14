@@ -1,16 +1,5 @@
 var gulp = require('gulp');
 
-var lib = require('bower-files')({
-  json: './src/site/bower.json',
-  dir: './src/site/bower_components',
-  overrides: {
-    react: {
-      main: ['react.js', 'JSXTransformer.js'],
-      dependencies: {}
-    }
-  }
-});
-
 //var sass = require('gulp-sass');
 
 //gulp.task('sass', function () {
@@ -20,6 +9,17 @@ var lib = require('bower-files')({
 //});
 
 gulp.task('bowerLibs', function() {
+  var lib = require('bower-files')({
+    json: './src/site/bower.json',
+    dir: './src/site/bower_components',
+    overrides: {
+      react: {
+        main: ['react.js', 'JSXTransformer.js'],
+        dependencies: {}
+      }
+    }
+  });
+
   return gulp.src(lib.ext('js').files)
     .pipe(gulp.dest('./build/site/lib/'))
 });
