@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var gulpBower = require('gulp-bower');
 
 //var sass = require('gulp-sass');
 
@@ -8,7 +9,11 @@ var gulp = require('gulp');
 //    .pipe(gulp.dest('./build/site/style'));
 //});
 
-gulp.task('bowerLibs', function() {
+gulp.task('bowerInstall', function() {
+  return gulpBower({ cwd: './src/site/', directory: './bower_components', cmd: 'install' });
+});
+
+gulp.task('bowerLibs', ['bowerInstall'], function() {
   var lib = require('bower-files')({
     json: './src/site/bower.json',
     dir: './src/site/bower_components',
