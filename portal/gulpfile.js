@@ -44,7 +44,4 @@ gulp.task('distStyles', function() {
     .pipe(gulp.dest('./dist/public/style'));
 });
 
-gulp.task('build', ['distLibs', 'distSources', 'distStyles'], function() {
-
-});
-
+gulp.task('build', ['bowerLibs', 'distLibs', 'distSources', 'distStyles']);
