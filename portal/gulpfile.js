@@ -29,7 +29,7 @@ gulp.task('bowerLibs', ['bowerInstall'], function() {
     .pipe(gulp.dest('./build/site/lib/'))
 });
 
-gulp.task('distLibs', function() {
+gulp.task('distLibs', ['bowerLibs'], function() {
   return gulp.src('./build/site/lib/*.js')
     .pipe(gulp.dest('./dist/public/lib'));
 });
@@ -44,4 +44,4 @@ gulp.task('distStyles', function() {
     .pipe(gulp.dest('./dist/public/style'));
 });
 
-gulp.task('build', ['bowerLibs', 'distLibs', 'distSources', 'distStyles']);
+gulp.task('build', ['distLibs', 'distSources', 'distStyles']);
