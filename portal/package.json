@@ -4,13 +4,13 @@
   "description": "SIEBAC Portal",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build; npm run test:api",
+    "test": "npm run build && npm run test:api",
     "test:api": "mocha test/apiTest.js",
     "build:site": "gulp build",
     "build:server": "cp src/server/*.js dist/",
-    "build": "mkdir -p dist & npm run build:site & npm run build:server",
+    "build": "mkdir -p dist && npm run build:site && npm run build:server",
     "watch": "npm-watch",
-    "clean": "rm -r dist & rm -r build",
+    "clean": "rm -r dist && rm -r build",
     "bower": "gulp bower"
   },
   "watch": {
