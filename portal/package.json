@@ -28,6 +28,7 @@
     "browserify": "latest",
     "gulp": "latest",
     "gulp-bower": "0.0.10",
+    "gulp-eslint": "^0.7.0",
     "mocha": "latest",
     "supertest": "latest"
   }
