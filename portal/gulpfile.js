@@ -42,7 +42,7 @@ gulp.task('distLibs', ['bowerLibs', 'lint'], function() {
     .pipe(gulp.dest('./dist/public/lib'));
 });
 
-gulp.task('distSources', function() {
+gulp.task('distSources', ['lint'], function() {
   return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
     .pipe(gulp.dest('./dist/public'));
 });
