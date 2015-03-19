@@ -8,7 +8,6 @@ This is the SIEBAC portal, built with node.js and express.
 
 ```shell
 npm install
-(cd src/site && ../../node_modules/.bin/bower install)
 npm run build
 node dist/app.js
 ```

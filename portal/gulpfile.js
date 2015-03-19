@@ -1,15 +1,5 @@
 var gulp = require('gulp');
-
-var lib = require('bower-files')({
-  json: './src/site/bower.json',
-  dir: './src/site/bower_components',
-  overrides: {
-    react: {
-      main: ['react.js', 'JSXTransformer.js'],
-      dependencies: {}
-    }
-  }
-});
+var gulpBower = require('gulp-bower');
 
 //var sass = require('gulp-sass');
 
@@ -19,12 +9,27 @@ var lib = require('bower-files')({
 //    .pipe(gulp.dest('./build/site/style'));
 //});
 
-gulp.task('bowerLibs', function() {
+gulp.task('bowerInstall', function() {
+  return gulpBower({ cwd: './src/site/', directory: './bower_components', cmd: 'install' });
+});
+
+gulp.task('bowerLibs', ['bowerInstall'], function() {
+  var lib = require('bower-files')({
+    json: './src/site/bower.json',
+    dir: './src/site/bower_components',
+    overrides: {
+      react: {
+        main: ['react.js', 'JSXTransformer.js'],
+        dependencies: {}
+      }
+    }
+  });
+
   return gulp.src(lib.ext('js').files)
     .pipe(gulp.dest('./build/site/lib/'))
 });
 
-gulp.task('distLibs', function() {
+gulp.task('distLibs', ['bowerLibs'], function() {
   return gulp.src('./build/site/lib/*.js')
     .pipe(gulp.dest('./dist/public/lib'));
 });
@@ -39,7 +44,4 @@ gulp.task('distStyles', function() {
     .pipe(gulp.dest('./dist/public/style'));
 });
 
-gulp.task('build', ['distLibs', 'distSources', 'distStyles'], function() {
-
-});
-
+gulp.task('build', ['distLibs', 'distSources', 'distStyles']);
