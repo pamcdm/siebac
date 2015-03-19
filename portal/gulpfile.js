@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var gulpBower = require('gulp-bower');
+var eslint = require('gulp-eslint');
 
 //var sass = require('gulp-sass');
 
@@ -29,12 +30,19 @@ gulp.task('bowerLibs', ['bowerInstall'], function() {
     .pipe(gulp.dest('./build/site/lib/'))
 });
 
-gulp.task('distLibs', ['bowerLibs'], function() {
+gulp.task('lint', function() {
+  return gulp.src(['./src/site/static/*.js'])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
+});
+
+gulp.task('distLibs', ['bowerLibs', 'lint'], function() {
   return gulp.src('./build/site/lib/*.js')
     .pipe(gulp.dest('./dist/public/lib'));
 });
 
-gulp.task('distSources', function() {
+gulp.task('distSources', ['lint'], function() {
   return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
     .pipe(gulp.dest('./dist/public'));
 });
