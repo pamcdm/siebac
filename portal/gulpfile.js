@@ -24,9 +24,11 @@ gulp.task('bowerLibs', ['bowerInstall'], function() {
       }
     }
   });
+  gulp.src(lib.ext('css').files)
+    .pipe(gulp.dest('./build/site/style/'));
 
   return gulp.src(lib.ext('js').files)
-    .pipe(gulp.dest('./build/site/lib/'))
+    .pipe(gulp.dest('./build/site/lib/'));
 });
 
 gulp.task('distLibs', ['bowerLibs'], function() {
@@ -39,7 +41,7 @@ gulp.task('distSources', function() {
     .pipe(gulp.dest('./dist/public'));
 });
 
-gulp.task('distStyles', function() {
+gulp.task('distStyles', ['bowerLibs'], function() {
   return gulp.src(['./build/site/style/*.css'])
     .pipe(gulp.dest('./dist/public/style'));
 });
