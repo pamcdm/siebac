@@ -1,13 +1,12 @@
 var gulp = require('gulp');
 var gulpBower = require('gulp-bower');
+var sass = require('gulp-sass');
 
-//var sass = require('gulp-sass');
-
-//gulp.task('sass', function () {
-//  return gulp.src('./src/site/style/*.scss')
-//    .pipe(sass())
-//    .pipe(gulp.dest('./build/site/style'));
-//});
+gulp.task('sass', function () {
+  return gulp.src('./src/site/style/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('./build/site/style'));
+});
 
 gulp.task('bowerInstall', function() {
   return gulpBower({ cwd: './src/site/', directory: './bower_components', cmd: 'install' });
@@ -41,7 +40,7 @@ gulp.task('distSources', function() {
     .pipe(gulp.dest('./dist/public'));
 });
 
-gulp.task('distStyles', ['bowerLibs'], function() {
+gulp.task('distStyles', ['sass', 'bowerLibs'], function() {
   return gulp.src(['./build/site/style/*.css'])
     .pipe(gulp.dest('./dist/public/style'));
 });
