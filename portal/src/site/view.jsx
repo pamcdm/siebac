@@ -9,7 +9,7 @@ var CarSide = React.createClass({
 var AlternativeSide = React.createClass({
   render: function() {
     return <section class="alternative-chooser">
-      <h3>Agora, se você não tivesse um carro, você usaria?</h3>
+      <h3>Agora, se você não tivesse um carro, o que você usaria no lugar?</h3>
     </section>  
   }
 });
