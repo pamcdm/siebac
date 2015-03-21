@@ -1,1 +1,1 @@
-console.log('hey');
+console.log('hey, im domain  22');

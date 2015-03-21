@@ -30,13 +30,24 @@ gulp.task('bowerLibs', ['bowerInstall'], function() {
     .pipe(gulp.dest('./build/site/lib/'));
 });
 
+gulp.task('buildStatic', function() {
+  return gulp.src(['./src/site/static/*.*'])
+    .pipe(gulp.dest('./build/site/static'));
+});
+
+gulp.task('buildJavascript', function() {
+  return gulp.src(['./src/site/*.js'])
+    .pipe(gulp.dest('./build/site'));
+});
+
+
 gulp.task('distLibs', ['bowerLibs'], function() {
   return gulp.src('./build/site/lib/*.js')
     .pipe(gulp.dest('./dist/public/lib'));
 });
 
-gulp.task('distSources', function() {
-  return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
+gulp.task('distSources', ['buildStatic', 'buildJavascript'], function() {
+  return gulp.src(['./src/site/*.js', './src/site/static/**/*.*'])
     .pipe(gulp.dest('./dist/public'));
 });
 
@@ -46,3 +57,9 @@ gulp.task('distStyles', ['sass', 'bowerLibs'], function() {
 });
 
 gulp.task('build', ['distLibs', 'distSources', 'distStyles']);
+
+gulp.task('watch', function() {
+  gulp.watch(['./src/site/**/*.html','./src/site/**/*.js'], ['distSources']);
+  gulp.watch('./src/site/style/*.scss', ['distStyles']);
+
+});
