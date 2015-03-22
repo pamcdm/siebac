@@ -1,1 +1,3 @@
-console.log('hey, im domain  22');
+module.exports = function () {
+  return 'hey, im domain  22';
+};
