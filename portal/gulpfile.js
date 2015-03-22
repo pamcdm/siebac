@@ -5,20 +5,21 @@ var eslint = require('gulp-eslint');
 var react = require('gulp-react');
 var browserify = require('browserify');
 var transform = require('vinyl-transform');
+var uglify = require('gulp-uglify');
 
 gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
 gulp.task('buildVerifiedSources', ['lint']);
-gulp.task('build', ['bundle', 'distStyles']);
+gulp.task('build', ['optimise', 'distStyles', 'distStatic', 'distLibs']);
 gulp.task('default', ['build']);
+
+gulp.task('distStatic', ['buildVerifiedSources'], function () {
+  return gulp.src('./build/site/static/**/*.*')
+    .pipe(gulp.dest('./dist/public'));
+});
 
 gulp.task('distLibs', ['buildVerifiedSources'], function () {
   return gulp.src('./build/site/lib/*.js')
     .pipe(gulp.dest('./dist/public/lib'));
-});
-
-gulp.task('distSources', ['buildVerifiedSources'], function () {
-  return gulp.src(['./build/site/*.js', './build/site/static/**/*.*'])
-    .pipe(gulp.dest('./dist/public'));
 });
 
 gulp.task('distStyles', ['sass'], function () {
@@ -37,13 +38,19 @@ gulp.task('buildStatic', function () {
     .pipe(gulp.dest('./build/site/static'));
 });
 
-gulp.task('bundle', ['distLibs', 'distSources'], function () {
+gulp.task('bundle', ['buildVerifiedSources'], function () {
   var browserified = transform(function (filename) {
     return browserify({entries: filename, debug: true}).bundle();
   });
 
   return gulp.src('./build/site/main.js')
     .pipe(browserified)
+    .pipe(gulp.dest('./build/bundle'));
+});
+
+gulp.task('optimise', ['bundle'], function () {
+  return gulp.src('./build/bundle/main.js')
+    .pipe(uglify())
     .pipe(gulp.dest('./dist/public'));
 });
 
@@ -100,6 +107,6 @@ gulp.task('lint', ['buildSources'], function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['./src/site/**/*.html','./src/site/**/*.js', './src/site/**/*.jsx'], ['distSources']);
+  gulp.watch(['./src/site/**/*.html','./src/site/**/*.js', './src/site/**/*.jsx'], ['optimise']);
   gulp.watch('./src/site/style/*.scss', ['distStyles']);
 });
