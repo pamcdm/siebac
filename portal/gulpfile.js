@@ -1,14 +1,14 @@
 var gulp = require('gulp');
 var gulpBower = require('gulp-bower');
+var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
+var react = require('gulp-react');
 
-//var sass = require('gulp-sass');
-
-//gulp.task('sass', function () {
-//  return gulp.src('./src/site/style/*.scss')
-//    .pipe(sass())
-//    .pipe(gulp.dest('./build/site/style'));
-//});
+gulp.task('sass', function () {
+  return gulp.src('./src/site/style/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('./build/site/style'));
+});
 
 gulp.task('bowerInstall', function() {
   return gulpBower({ cwd: './src/site/', directory: './bower_components', cmd: 'install' });
@@ -25,9 +25,27 @@ gulp.task('bowerLibs', ['bowerInstall'], function() {
       }
     }
   });
+  gulp.src(lib.ext('css').files)
+    .pipe(gulp.dest('./build/site/style/'));
 
   return gulp.src(lib.ext('js').files)
-    .pipe(gulp.dest('./build/site/lib/'))
+    .pipe(gulp.dest('./build/site/lib/'));
+});
+
+gulp.task('buildStatic', function() {
+  return gulp.src(['./src/site/static/*.*'])
+    .pipe(gulp.dest('./build/site/static'));
+});
+
+gulp.task('buildReact', function() {
+  return gulp.src(['./src/site/*.jsx'])
+    .pipe(react())
+    .pipe(gulp.dest('./build/site'));
+});
+
+gulp.task('buildJavascript', function() {
+  return gulp.src(['./src/site/*.js'])
+    .pipe(gulp.dest('./build/site'));
 });
 
 gulp.task('lint', function() {
@@ -42,14 +60,20 @@ gulp.task('distLibs', ['bowerLibs', 'lint'], function() {
     .pipe(gulp.dest('./dist/public/lib'));
 });
 
-gulp.task('distSources', ['lint'], function() {
-  return gulp.src(['./src/site/*.*', './src/site/static/*.*'])
+gulp.task('distSources', ['lint', 'buildStatic', 'buildJavascript', 'buildReact'], function() {
+  return gulp.src(['./build/site/*.js', './build/site/static/**/*.*'])
     .pipe(gulp.dest('./dist/public'));
 });
 
-gulp.task('distStyles', function() {
+gulp.task('distStyles', ['sass', 'bowerLibs'], function() {
   return gulp.src(['./build/site/style/*.css'])
     .pipe(gulp.dest('./dist/public/style'));
 });
 
 gulp.task('build', ['distLibs', 'distSources', 'distStyles']);
+
+gulp.task('watch', function() {
+  gulp.watch(['./src/site/**/*.html','./src/site/**/*.js', './src/site/**/*.jsx'], ['distSources']);
+  gulp.watch('./src/site/style/*.scss', ['distStyles']);
+
+});
