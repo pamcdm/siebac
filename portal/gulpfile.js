@@ -3,6 +3,18 @@ var gulpBower = require('gulp-bower');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var react = require('gulp-react');
+var browserify = require('browserify');
+var transform = require('vinyl-transform');
+
+gulp.task('bundle', ['distLibs', 'distSources'], function () {
+  var browserified = transform(function(filename) {
+    return browserify({entries: filename, debug: true}).bundle();
+  });
+
+  return gulp.src('./build/site/main.js')
+    .pipe(browserified)
+    .pipe(gulp.dest('./dist/public'));
+});
 
 gulp.task('sass', function () {
   return gulp.src('./src/site/style/*.scss')
@@ -70,10 +82,9 @@ gulp.task('distStyles', ['sass', 'bowerLibs'], function() {
     .pipe(gulp.dest('./dist/public/style'));
 });
 
-gulp.task('build', ['distLibs', 'distSources', 'distStyles']);
+gulp.task('build', ['bundle', 'distStyles']);
 
 gulp.task('watch', function() {
   gulp.watch(['./src/site/**/*.html','./src/site/**/*.js', './src/site/**/*.jsx'], ['distSources']);
   gulp.watch('./src/site/style/*.scss', ['distStyles']);
-
 });
