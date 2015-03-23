@@ -20,6 +20,7 @@ bower_components
 #generated
 dist
 build
+release
 
 #marc
 .DS_Store

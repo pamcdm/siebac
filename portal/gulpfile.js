@@ -117,6 +117,11 @@ gulp.task('test', ['buildSources'], function (done) {
   }, done);
 });
 
+gulp.task('release', ['build'], function () {
+  return gulp.src(['dist/**', 'Dockerfile', 'package.json'])
+    .pipe(gulp.dest('release'));
+});
+
 gulp.task('watch', function () {
   gulp.watch(['./src/site/**/*.html','./src/site/**/*.js', './src/site/**/*.jsx'], ['optimise']);
   gulp.watch('./src/site/style/*.scss', ['distStyles']);
