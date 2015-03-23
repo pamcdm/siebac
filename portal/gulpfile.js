@@ -6,9 +6,10 @@ var react = require('gulp-react');
 var browserify = require('browserify');
 var transform = require('vinyl-transform');
 var uglify = require('gulp-uglify');
+var karma = require('karma').server;
 
 gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
-gulp.task('buildVerifiedSources', ['lint']);
+gulp.task('buildVerifiedSources', ['lint', 'test']);
 gulp.task('build', ['optimise', 'distStyles', 'distStatic', 'distLibs']);
 gulp.task('default', ['build']);
 
@@ -40,7 +41,11 @@ gulp.task('buildStatic', function () {
 
 gulp.task('bundle', ['buildVerifiedSources'], function () {
   var browserified = transform(function (filename) {
-    return browserify({entries: filename, debug: true}).bundle();
+    return browserify({
+      entries: filename,
+      debug: true,
+      paths: ['./build/site']
+    }).bundle();
   });
 
   return gulp.src('./build/site/main.js')
@@ -104,6 +109,12 @@ gulp.task('lint', ['buildSources'], function () {
     }))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
+});
+
+gulp.task('test', ['buildSources'], function (done) {
+  karma.start({
+    configFile: __dirname + '/build.karma.conf.js'
+  }, done);
 });
 
 gulp.task('watch', function () {
