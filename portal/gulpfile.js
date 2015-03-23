@@ -6,6 +6,37 @@ var react = require('gulp-react');
 var browserify = require('browserify');
 var transform = require('vinyl-transform');
 
+gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
+gulp.task('buildVerifiedSources', ['lint']);
+gulp.task('build', ['bundle', 'distStyles']);
+gulp.task('default', ['build']);
+
+gulp.task('distLibs', ['buildVerifiedSources'], function () {
+  return gulp.src('./build/site/lib/*.js')
+    .pipe(gulp.dest('./dist/public/lib'));
+});
+
+gulp.task('distSources', ['buildVerifiedSources'], function () {
+  return gulp.src(['./build/site/*.js', './build/site/static/**/*.*'])
+    .pipe(gulp.dest('./dist/public'));
+});
+
+gulp.task('distStyles', ['sass'], function () {
+  return gulp.src(['./build/site/style/*.css'])
+    .pipe(gulp.dest('./dist/public/style'));
+});
+
+gulp.task('sass', ['bowerLibs'], function () {
+  return gulp.src('./src/site/style/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('./build/site/style'));
+});
+
+gulp.task('buildStatic', function () {
+  return gulp.src(['./src/site/static/*.*'])
+    .pipe(gulp.dest('./build/site/static'));
+});
+
 gulp.task('bundle', ['distLibs', 'distSources'], function () {
   var browserified = transform(function (filename) {
     return browserify({entries: filename, debug: true}).bundle();
@@ -14,12 +45,6 @@ gulp.task('bundle', ['distLibs', 'distSources'], function () {
   return gulp.src('./build/site/main.js')
     .pipe(browserified)
     .pipe(gulp.dest('./dist/public'));
-});
-
-gulp.task('sass', function () {
-  return gulp.src('./src/site/style/*.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./build/site/style'));
 });
 
 gulp.task('bowerInstall', function () {
@@ -44,12 +69,7 @@ gulp.task('bowerLibs', ['bowerInstall'], function () {
     .pipe(gulp.dest('./build/site/lib/'));
 });
 
-gulp.task('buildStatic', function () {
-  return gulp.src(['./src/site/static/*.*'])
-    .pipe(gulp.dest('./build/site/static'));
-});
-
-gulp.task('buildReact', function () {
+gulp.task('buildReactCompile', function () {
   return gulp.src(['./src/site/*.jsx'])
     .pipe(react())
     .pipe(gulp.dest('./build/site'));
@@ -60,29 +80,24 @@ gulp.task('buildJavascript', function () {
     .pipe(gulp.dest('./build/site'));
 });
 
-gulp.task('lint', function () {
-  return gulp.src(['./src/site/static/*.js'])
-    .pipe(eslint())
+gulp.task('lint', ['buildSources'], function () {
+  return gulp.src(['./build/site/*.js'])
+    .pipe(eslint({
+      rules: {
+        strict: false,
+        'no-trailing-spaces': 1,
+        quotes: [1, "single", "avoid-escape"]
+      },
+      globals: {
+        React: true,
+        document: true,
+        module: true,
+        require: true
+      }
+    }))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });
-
-gulp.task('distLibs', ['bowerLibs', 'lint'], function () {
-  return gulp.src('./build/site/lib/*.js')
-    .pipe(gulp.dest('./dist/public/lib'));
-});
-
-gulp.task('distSources', ['lint', 'buildStatic', 'buildJavascript', 'buildReact'], function () {
-  return gulp.src(['./build/site/*.js', './build/site/static/**/*.*'])
-    .pipe(gulp.dest('./dist/public'));
-});
-
-gulp.task('distStyles', ['sass', 'bowerLibs'], function () {
-  return gulp.src(['./build/site/style/*.css'])
-    .pipe(gulp.dest('./dist/public/style'));
-});
-
-gulp.task('build', ['bundle', 'distStyles']);
 
 gulp.task('watch', function () {
   gulp.watch(['./src/site/**/*.html','./src/site/**/*.js', './src/site/**/*.jsx'], ['distSources']);
