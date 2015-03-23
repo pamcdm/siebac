@@ -21,3 +21,23 @@ To run the tests:
 ```npm test```
 
 Npm tests will run with mocha
+
+### Release
+
+```
+npm install
+npm run release
+```
+
+This will produce a `release` folder, that is ready to be Dockerized.
+To dockerize it:
+
+```
+docker build -t siebac .
+```
+
+And to run it
+
+```
+docker run --rm -it -p 80:3000 siebac
+```

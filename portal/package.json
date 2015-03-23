@@ -2,7 +2,7 @@
   "name": "portal",
   "version": "0.0.0",
   "description": "SIEBAC Portal",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "npm run build && npm run test:api",
     "test:api": "mocha test/apiTest.js",
@@ -12,7 +12,9 @@
     "build": "mkdir -p dist && npm run build:site && npm run build:server",
     "watch": "gulp watch",
     "clean": "rm -r dist && rm -r build",
-    "bower": "gulp bower"
+    "bower": "gulp bower",
+    "release": "gulp release",
+    "start": "node app.js"
   },
   "watch": {
     "build:site": "src/site/*.js",
