@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 app.get('/api', function (req, res) {
-  res.send('Hello World!')
+  res.send('Hello World!');
 });
 
 app.use(express.static(__dirname + '/public'));
