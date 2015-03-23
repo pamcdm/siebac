@@ -40,7 +40,11 @@ gulp.task('buildStatic', function () {
 
 gulp.task('bundle', ['buildVerifiedSources'], function () {
   var browserified = transform(function (filename) {
-    return browserify({entries: filename, debug: true}).bundle();
+    return browserify({
+      entries: filename,
+      debug: true,
+      paths: ['./build/site']
+    }).bundle();
   });
 
   return gulp.src('./build/site/main.js')
