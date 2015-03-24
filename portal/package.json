@@ -8,12 +8,12 @@
     "test:api": "mocha test/apiTest.js",
     "build:site": "gulp build",
     "lint": "gulp lint",
-    "build:server": "cp src/server/*.js dist/",
+    "build:server": "mkdir -p dist && cp src/server/*.js dist/",
     "build": "mkdir -p dist && npm run build:site && npm run build:server",
     "watch": "gulp watch",
-    "clean": "rm -r dist && rm -r build",
+    "clean": "rm -r dist && rm -r build && rm -r release",
     "bower": "gulp bower",
-    "release": "gulp release",
+    "release": "npm run build:server && gulp release",
     "start": "node app.js"
   },
   "watch": {
