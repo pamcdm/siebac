@@ -96,7 +96,7 @@ var Submit = React.createClass({
   render: function() {
     return (
       <div className="submit-wrapper">
-        <button type="button">Calcular</button>
+        <button type="button">Vai!</button>
       </div>
     );
   }
