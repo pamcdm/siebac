@@ -11,7 +11,7 @@ var karma = require('karma').server;
 gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
 gulp.task('buildVerifiedSources', ['lint', 'test']);
 gulp.task('build', ['optimise', 'distStyles', 'distStatic', 'distLibs']);
-gulp.task('default', ['build']);
+gulp.task('default', ['release']);
 
 gulp.task('distStatic', ['buildVerifiedSources'], function () {
   return gulp.src('./build/site/static/**/*.*')
