@@ -41,7 +41,6 @@
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4",
     "mocha": "latest",
-    "supertest": "latest",
-    "vinyl-transform": "^1.0.0"
+    "supertest": "latest"
   }
 }

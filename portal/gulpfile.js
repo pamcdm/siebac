@@ -4,7 +4,7 @@ var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var react = require('gulp-react');
 var browserify = require('browserify');
-var transform = require('vinyl-transform');
+var fs = require('fs');
 var uglify = require('gulp-uglify');
 var karma = require('karma').server;
 
@@ -40,21 +40,16 @@ gulp.task('buildStatic', function () {
 });
 
 gulp.task('bundle', ['buildVerifiedSources'], function () {
-  var browserified = transform(function (filename) {
-    return browserify({
-      entries: filename,
-      debug: true,
-      paths: ['./build/site']
-    }).bundle();
-  });
-
-  return gulp.src('./build/site/main.js')
-    .pipe(browserified)
-    .pipe(gulp.dest('./build/bundle'));
+  return browserify({
+    entries: './build/site/main.js',
+    debug: true,
+    paths: ['./build/site']
+   }).bundle()
+     .pipe(fs.createWriteStream('./build/main.bundle.js'));
 });
 
 gulp.task('optimise', ['bundle'], function () {
-  return gulp.src('./build/bundle/main.js')
+  return gulp.src('./build/main.bundle.js')
     .pipe(uglify())
     .pipe(gulp.dest('./dist/public'));
 });
