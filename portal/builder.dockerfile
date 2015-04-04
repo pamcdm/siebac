@@ -6,6 +6,6 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 RUN npm install
 COPY . /usr/src/app
-RUN npm run release && ls dist
+RUN npm run release
 
 CMD ["tar", "cz", "dist"]
