@@ -31,6 +31,7 @@
     "browserify": "latest",
     "chai": "^2.1.2",
     "gulp": "latest",
+    "gulp-babel": "^5.2.0",
     "gulp-bower": "0.0.10",
     "gulp-eslint": "^0.7.0",
     "gulp-react": "^3.0.1",

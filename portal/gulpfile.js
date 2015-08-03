@@ -6,6 +6,7 @@ var react = require('gulp-react');
 var browserify = require('browserify');
 var fs = require('fs');
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 var karma = require('karma').server;
 
 gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
@@ -46,6 +47,12 @@ gulp.task('bundle', ['buildVerifiedSources'], function () {
     paths: ['./build/site']
    }).bundle()
      .pipe(fs.createWriteStream('./build/main.bundle.js'));
+});
+
+gulp.task('transpile', function () {
+  return gulp.src('./build/site/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('./build/es5'));
 });
 
 gulp.task('optimise', ['bundle'], function () {
