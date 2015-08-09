@@ -1,5 +1,5 @@
-var CarBuyForm = React.createClass({
-  render: function() {
+class CarBuyForm extends React.Component {
+  render () {
     return (
       <fieldset className={this.props.className}>
         <legend>Aquisição de Veículo</legend>
@@ -10,10 +10,10 @@ var CarBuyForm = React.createClass({
       </fieldset>
     );
   }
-});
+}
 
-var CarMaintenanceForm = React.createClass({
-  render: function() {
+class CarMaintenanceForm extends React.Component {
+  render () {
     return (
       <fieldset className={this.props.className}>
         <legend>Manutenção</legend>
@@ -24,10 +24,10 @@ var CarMaintenanceForm = React.createClass({
       </fieldset>
     );
   }
-});
+}
 
-var CarSide = React.createClass({
-  render: function() {
+class CarSide extends React.Component {
+  render () {
     return (
       <section className="car-chooser">
         <h3>Configure o seu carro</h3>
@@ -38,10 +38,10 @@ var CarSide = React.createClass({
       </section>
     );
   }
-});
+}
 
-var TaxiForm = React.createClass({
-  render: function() {
+class TaxiForm extends React.Component {
+  render () {
     return (
       <fieldset className={this.props.className}>
         <legend>Taxi</legend>
@@ -50,10 +50,10 @@ var TaxiForm = React.createClass({
       </fieldset>
     );
   }
-});
+}
 
-var BusForm = React.createClass({
-  render: function() {
+class BusForm extends React.Component {
+  render () {
     return (
       <fieldset className={this.props.className}>
         <legend>Ônibus ou Trem</legend>
@@ -62,10 +62,10 @@ var BusForm = React.createClass({
       </fieldset>
     );
   }
-});
+}
 
-var RentForm = React.createClass({
-  render: function() {
+class RentForm extends React.Component {
+  render () {
     return (
       <fieldset className={this.props.className}>
         <legend>Aluguel de Veículo</legend>
@@ -75,10 +75,10 @@ var RentForm = React.createClass({
       </fieldset>
     );
   }
-});
+}
 
-var AlternativeSide = React.createClass({
-  render: function() {
+class AlternativeSide extends React.createClass {
+  render () {
     return (
       <section className="alternative-chooser">
         <h3>Agora, se você não tivesse um carro, o que você usaria no lugar?</h3>
@@ -90,17 +90,17 @@ var AlternativeSide = React.createClass({
       </section>
     );
   }
-});
+}
 
-var Submit = React.createClass({
-  render: function() {
+class Submit extends React.createClass {
+  render () {
     return (
       <div className="submit-wrapper">
         <button type="button">Vai!</button>
       </div>
     );
   }
-});
+}
 
 module.exports = {
   render: function () {
