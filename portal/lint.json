@@ -1,0 +1,13 @@
+{
+  rules: {
+    strict: false,
+    'no-trailing-spaces': 1,
+    quotes: [1, "single", "avoid-escape"]
+  },
+  globals: {
+    React: true,
+    document: true,
+    module: true,
+    require: true
+  }
+}

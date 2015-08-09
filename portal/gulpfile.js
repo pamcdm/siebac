@@ -96,19 +96,7 @@ gulp.task('buildJavascript', function () {
 
 gulp.task('lint', ['buildSources'], function () {
   return gulp.src(['./build/site/*.js'])
-    .pipe(eslint({
-      rules: {
-        strict: false,
-        'no-trailing-spaces': 1,
-        quotes: [1, "single", "avoid-escape"]
-      },
-      globals: {
-        React: true,
-        document: true,
-        module: true,
-        require: true
-      }
-    }))
+    .pipe(eslint('./lint.json'))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });
