@@ -1,4 +1,7 @@
 {
+  env: {
+    "es6": true
+  },
   rules: {
     strict: false,
     'no-trailing-spaces': 1,
