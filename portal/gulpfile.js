@@ -2,14 +2,13 @@ var gulp = require('gulp');
 var gulpBower = require('gulp-bower');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
-var react = require('gulp-react');
 var browserify = require('browserify');
 var fs = require('fs');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var karma = require('karma').server;
 
-gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
+gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildJavascript']);
 gulp.task('buildVerifiedSources', ['lint', 'test']);
 gulp.task('build', ['optimise', 'distStyles', 'distStatic', 'distLibs']);
 gulp.task('default', ['release']);
@@ -49,12 +48,6 @@ gulp.task('bundle', ['buildVerifiedSources'], function () {
      .pipe(fs.createWriteStream('./build/main.bundle.js'));
 });
 
-gulp.task('transpile', function () {
-  return gulp.src('./build/site/*.js')
-    .pipe(babel())
-    .pipe(gulp.dest('./build/es5'));
-});
-
 gulp.task('optimise', ['bundle'], function () {
   return gulp.src('./build/main.bundle.js')
     .pipe(uglify())
@@ -83,14 +76,9 @@ gulp.task('bowerLibs', ['bowerInstall'], function () {
     .pipe(gulp.dest('./build/site/lib/'));
 });
 
-gulp.task('buildReactCompile', function () {
-  return gulp.src(['./src/site/*.jsx'])
-    .pipe(babel())
-    .pipe(gulp.dest('./build/site'));
-});
-
 gulp.task('buildJavascript', function () {
-  return gulp.src(['./src/site/*.js'])
+  return gulp.src(['./src/site/*.js', './src/site/*.jsx'])
+    .pipe(babel())
     .pipe(gulp.dest('./build/site'));
 });
 
