@@ -85,7 +85,7 @@ gulp.task('bowerLibs', ['bowerInstall'], function () {
 
 gulp.task('buildReactCompile', function () {
   return gulp.src(['./src/site/*.jsx'])
-    .pipe(react())
+    .pipe(babel())
     .pipe(gulp.dest('./build/site'));
 });
 
@@ -96,7 +96,7 @@ gulp.task('buildJavascript', function () {
 
 gulp.task('lint', ['buildSources'], function () {
   return gulp.src(['./build/site/*.js'])
-    .pipe(eslint('./lint.json'))
+    .pipe(eslint('./lintConfig.json'))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });

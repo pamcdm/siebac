@@ -26,6 +26,7 @@
     "express": "latest"
   },
   "devDependencies": {
+    "babel-eslint": "^4.0.5",
     "bower": "latest",
     "bower-files": "latest",
     "browserify": "latest",
