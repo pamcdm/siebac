@@ -23,6 +23,12 @@ gulp.task('distLibs', ['buildVerifiedSources'], function () {
     .pipe(gulp.dest('./dist/public/lib'));
 });
 
+gulp.task('transpile', ['buildVerifiedSources'], function () {
+  return gulp.src(['./build/es6'])
+  .pipe(babel())
+  .pipe(gulp.dest('./build/site'))
+});
+
 gulp.task('distStyles', ['sass'], function () {
   return gulp.src(['./build/site/style/*.css'])
     .pipe(gulp.dest('./dist/public/style'));
@@ -39,7 +45,12 @@ gulp.task('buildStatic', function () {
     .pipe(gulp.dest('./build/site/static'));
 });
 
-gulp.task('bundle', ['buildVerifiedSources'], function () {
+gulp.task('buildJavascript', function () {
+  return gulp.src(['./src/site/*.js', './src/site/*.jsx'])
+    .pipe(gulp.dest('./build/site/'));
+});
+
+gulp.task('bundle', ['transpile'], function () {
   return browserify({
     entries: './build/site/main.js',
     debug: true,
