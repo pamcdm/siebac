@@ -76,14 +76,8 @@ gulp.task('bowerLibs', ['bowerInstall'], function () {
     .pipe(gulp.dest('./build/site/lib/'));
 });
 
-gulp.task('buildJavascript', function () {
-  return gulp.src(['./src/site/*.js', './src/site/*.jsx'])
-    .pipe(babel())
-    .pipe(gulp.dest('./build/site'));
-});
-
 gulp.task('lint', ['buildSources'], function () {
-  return gulp.src(['./build/site/*.js'])
+  return gulp.src(['./build/site/*.js', './src/site/*.jsx'])
     .pipe(eslint('./lintConfig.json'))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
