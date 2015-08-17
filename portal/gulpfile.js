@@ -88,7 +88,7 @@ gulp.task('bowerLibs', ['bowerInstall'], function () {
 });
 
 gulp.task('lint', ['buildSources'], function () {
-  return gulp.src(['./build/site/*.js', './src/site/*.jsx'])
+  return gulp.src(['./build/site/*.js', './build/site/*.jsx'])
     .pipe(eslint('./lintConfig.json'))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());

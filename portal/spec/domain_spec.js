@@ -1,4 +1,4 @@
-var View = require('view.js');
+var View = require('view.jsx');
 var expect = require('chai').expect;
 
 describe('domain', function () {

@@ -4,11 +4,12 @@
   },
   ecmaFeatures: {
     classes: true,
-    jsx: true
+    jsx: true,
+    modules: true
   },
   rules: {
     strict: false,
-    no-trailing-spaces: 1,
+    no-trailing-spaces: false,
     quotes: [1, "single", "avoid-escape"]
   },
   globals: {

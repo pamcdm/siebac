@@ -29,8 +29,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'build/**/*.js': ['babel'],
-      'build/**/*.jsx': ['babel'],
+      'build/site/*.js': ['babel'],
+      'build/site/*.jsx': ['babel'],
       'spec/*_spec.js': ['browserify']
     },
 

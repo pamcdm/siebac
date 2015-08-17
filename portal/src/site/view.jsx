@@ -102,15 +102,13 @@ class Submit extends React.createClass {
   }
 }
 
-module.exports = {
-  render: function () {
-    React.render(
-      <form>
-        <CarSide />
-        <AlternativeSide />
-        <Submit />
-      </form>,
-      document.getElementById('main')
-    );
-  }
-};
+export function render () {
+  React.render(
+    <form>
+      <CarSide />
+      <AlternativeSide />
+      <Submit />
+    </form>,
+    document.getElementById('main')
+  );
+}
