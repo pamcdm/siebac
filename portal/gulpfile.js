@@ -3,6 +3,7 @@ var gulpBower = require('gulp-bower');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
 var browserify = require('browserify');
+var babelify = require('babelify');
 var fs = require('fs');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
@@ -21,12 +22,6 @@ gulp.task('distStatic', ['buildVerifiedSources'], function () {
 gulp.task('distLibs', ['buildVerifiedSources'], function () {
   return gulp.src('./build/site/lib/*.js')
     .pipe(gulp.dest('./dist/public/lib'));
-});
-
-gulp.task('transpile', ['buildVerifiedSources'], function () {
-  return gulp.src(['./build/es6'])
-  .pipe(babel())
-  .pipe(gulp.dest('./build/site'))
 });
 
 gulp.task('distStyles', ['sass'], function () {
@@ -50,13 +45,16 @@ gulp.task('buildJavascript', function () {
     .pipe(gulp.dest('./build/site/'));
 });
 
-gulp.task('bundle', ['transpile'], function () {
+gulp.task('bundle', function () {
   return browserify({
     entries: './build/site/main.js',
+    extensions: ['.jsx'],
     debug: true,
     paths: ['./build/site']
-   }).bundle()
-     .pipe(fs.createWriteStream('./build/main.bundle.js'));
+   })
+    .transform(babelify)
+    .bundle()
+    .pipe(fs.createWriteStream('./build/main.bundle.js'));
 });
 
 gulp.task('optimise', ['bundle'], function () {

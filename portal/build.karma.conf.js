@@ -29,8 +29,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'build/site/*.js': ['babel'],
-      'build/site/*.jsx': ['babel'],
+      'build/site/*.js': ['browserify'],
+      'build/site/*.jsx': ['browserify'],
       'spec/*_spec.js': ['browserify']
     },
 
@@ -69,15 +69,8 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
+      transform: ['babelify'],
       paths: ['build/site']
-    },
-
-    babelPreprocessor: {
-      options: {
-          modules: "amd"
-      }
-    },
-
-    pluguins: ['karma-babel-preprocessor']
+    }
   });
-};
+}
