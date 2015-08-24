@@ -102,7 +102,7 @@ class Submit extends React.createClass {
   }
 }
 
-export function render () {
+export default function render () {
   React.render(
     <form>
       <CarSide />

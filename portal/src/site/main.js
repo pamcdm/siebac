@@ -1,2 +1,2 @@
-import view from 'view';
-view.render();
+import render from 'view';
+render();
