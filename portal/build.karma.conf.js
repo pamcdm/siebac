@@ -69,8 +69,9 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
-      transform: ['babelify'],
-      extensions: ['.jsx, js']
+      extensions: ['.jsx'],
+      paths: ['build/site'],
+      transform: ['babelify']
     }
   });
 }

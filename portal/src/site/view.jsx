@@ -1,3 +1,5 @@
+import React from 'react';
+
 class CarBuyForm extends React.Component {
   render () {
     return (
