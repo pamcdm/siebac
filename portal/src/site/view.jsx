@@ -79,7 +79,7 @@ class RentForm extends React.Component {
   }
 }
 
-class AlternativeSide extends React.createClass {
+class AlternativeSide extends React.Component {
   render () {
     return (
       <section className="alternative-chooser">
@@ -94,7 +94,7 @@ class AlternativeSide extends React.createClass {
   }
 }
 
-class Submit extends React.createClass {
+class Submit extends React.Component {
   render () {
     return (
       <div className="submit-wrapper">

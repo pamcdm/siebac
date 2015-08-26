@@ -52,7 +52,7 @@ gulp.task('bundle', function () {
     debug: true,
     paths: ['./build/site']
    })
-    .transform(babelify)
+    .transform(babelify.configure( { babelrc: './build.babelrc.js'} ))
     .bundle()
     .pipe(fs.createWriteStream('./build/main.bundle.js'));
 });
