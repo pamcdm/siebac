@@ -2,13 +2,14 @@ var gulp = require('gulp');
 var gulpBower = require('gulp-bower');
 var sass = require('gulp-sass');
 var eslint = require('gulp-eslint');
-var react = require('gulp-react');
 var browserify = require('browserify');
+var babelify = require('babelify');
 var fs = require('fs');
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 var karma = require('karma').server;
 
-gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildReactCompile', 'buildJavascript']);
+gulp.task('buildSources', ['bowerLibs', 'buildStatic', 'buildJavascript']);
 gulp.task('buildVerifiedSources', ['lint', 'test']);
 gulp.task('build', ['optimise', 'distStyles', 'distStatic', 'distLibs']);
 gulp.task('default', ['release']);
@@ -39,13 +40,21 @@ gulp.task('buildStatic', function () {
     .pipe(gulp.dest('./build/site/static'));
 });
 
-gulp.task('bundle', ['buildVerifiedSources'], function () {
+gulp.task('buildJavascript', function () {
+  return gulp.src(['./src/site/*.js', './src/site/*.jsx'])
+    .pipe(gulp.dest('./build/site/'));
+});
+
+gulp.task('bundle', function () {
   return browserify({
     entries: './build/site/main.js',
+    extensions: ['.jsx'],
     debug: true,
     paths: ['./build/site']
-   }).bundle()
-     .pipe(fs.createWriteStream('./build/main.bundle.js'));
+   })
+    .transform(babelify.configure( { babelrc: './build.babelrc.js'} ))
+    .bundle()
+    .pipe(fs.createWriteStream('./build/main.bundle.js'));
 });
 
 gulp.task('optimise', ['bundle'], function () {
@@ -76,32 +85,9 @@ gulp.task('bowerLibs', ['bowerInstall'], function () {
     .pipe(gulp.dest('./build/site/lib/'));
 });
 
-gulp.task('buildReactCompile', function () {
-  return gulp.src(['./src/site/*.jsx'])
-    .pipe(react())
-    .pipe(gulp.dest('./build/site'));
-});
-
-gulp.task('buildJavascript', function () {
-  return gulp.src(['./src/site/*.js'])
-    .pipe(gulp.dest('./build/site'));
-});
-
 gulp.task('lint', ['buildSources'], function () {
-  return gulp.src(['./build/site/*.js'])
-    .pipe(eslint({
-      rules: {
-        strict: false,
-        'no-trailing-spaces': 1,
-        quotes: [1, "single", "avoid-escape"]
-      },
-      globals: {
-        React: true,
-        document: true,
-        module: true,
-        require: true
-      }
-    }))
+  return gulp.src(['./build/site/*.js', './build/site/*.jsx'])
+    .pipe(eslint('./lintConfig.json'))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });

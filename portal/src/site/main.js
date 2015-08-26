@@ -1,2 +1,2 @@
-var view = require('view.js');
-view.render();
+import render from 'view';
+render();

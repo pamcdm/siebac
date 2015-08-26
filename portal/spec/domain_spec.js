@@ -1,8 +1,9 @@
-var View = require('view.js');
-var expect = require('chai').expect;
+import { expect } from 'chai';
+
+import render from 'view';
 
 describe('domain', function () {
   it('should pass', function () {
-    expect(View.render).not.to.equal(undefined);
+    expect(render).not.to.equal(undefined);
   });
 });

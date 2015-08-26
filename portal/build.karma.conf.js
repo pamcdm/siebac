@@ -29,7 +29,9 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'spec/*_spec.js': ['browserify']
+      'spec/*_spec.js': ['browserify'],
+      'build/site/*.js': ['browserify'],
+      'build/site/*.jsx': ['browserify']
     },
 
 
@@ -49,7 +51,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
@@ -67,7 +69,9 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
-      paths: ['build/site']
+      extensions: ['.jsx'],
+      paths: ['build/site'],
+      transform: ['babelify']
     }
   });
-};
+}
